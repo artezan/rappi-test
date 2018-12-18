@@ -58,6 +58,6 @@ export class CartControllerService {
   public clearCartAll() {
     this.arrCar = [];
     this.car$.next(this.arrCar);
-    localStorage.setItem('car', JSON.stringify(this.arrCar));
+    localStorage.clear();
   }
 }
