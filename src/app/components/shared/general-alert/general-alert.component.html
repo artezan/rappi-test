@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{ dataInput.header }}</h2>
+<h3 mat-dialog-title>{{ dataInput.subHeader }}</h3>
+<mat-dialog-content>
+  <span *ngIf="dataInput.body" [innerHTML]="dataInput.body"></span>
+  <span *ngIf="dataInput.isform">
+    <mat-form-field style="width: 100%">
+      <textarea
+        style="width: 100%"
+        matInput
+        [(ngModel)]="message"
+        placeholder="Mensaje"
+      ></textarea>
+    </mat-form-field>
+  </span>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    color="primary"
+    (click)="buttonsResponse('ok')"
+    mat-button
+    mat-dialog-close
+  >
+    Ok
+  </button>
+  <button
+    color="warn"
+    *ngIf="!dataInput.hideButtonCancel"
+    mat-button
+    mat-dialog-close
+    (click)="buttonsResponse('cancel')"
+  >
+    Cancelar
+  </button>
+  <!--
+    The mat-dialog-close directive optionally accepts a value as a result for the dialog.
+  -->
+</mat-dialog-actions>

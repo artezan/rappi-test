@@ -1,0 +1,28 @@
+<div class="conteiner">
+  <ul class="breadcrumb">
+    <li><a [routerLink]="['/list-category']">Categorias</a></li>
+    <li>{{ category.name }}</li>
+  </ul>
+  <div class="row">
+    <div class="col-3" *ngFor="let sublevel of category.sublevels">
+      <mat-card (click)="goToProducts(sublevel.id)" class="center-conteiner">
+        <mat-card-header class="center-flex ">
+          <mat-card-title>{{ sublevel.name }}</mat-card-title>
+          <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content class="center-block">
+          <img class="center-block" [src]="sublevel.img" alt="" srcset="" />
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            (click)="goToProducts(sublevel.id)"
+            mat-stroked-button
+            color="primary"
+          >
+            Detalles
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

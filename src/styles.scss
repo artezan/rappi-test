@@ -1,1 +1,138 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+.conteiner {
+  margin: 0% 5% 0% 5%;
+}
+.center-conteiner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.center-flex {
+  justify-content: center;
+}
+.center-block {
+  text-align: center;
+}
+.my-chip {
+  margin: 0% 3% 0% 3%;
+  background-color: #1070a6;
+  color: white;
+  padding: 0px 10px 0px 10px;
+  border-radius: 3px;
+}
+.chip-icon {
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0 1.563rem;
+  height: 3.125rem;
+  border-radius: 1.563rem;
+  margin: 0.625rem;
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: capitalize;
+  box-shadow: 0.2rem 0.25rem 0.1875rem 0 rgba(0, 0, 0, 0.14);
+  background-color: white;
+  div {
+    font-weight: 700;
+    align-self: center;
+  }
+  img {
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 50%;
+    margin: 0 0.625rem 0 -1.563rem;
+  }
+}
+.ion-badge {
+  padding: 3px 8px;
+  text-align: center;
+  display: inline-block;
+  min-width: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 4px;
+}
+.bg-true {
+  background-color: green;
+  color: white;
+}
+.bg-red {
+  background-color: red;
+  color: white;
+}
+.flex-col {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  * {
+    margin: 2%;
+  }
+}
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li + li:before {
+  padding: 8px;
+  color: black;
+  content: '/\00a0';
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+@media (max-width: 900px) {
+  .conteiner {
+    margin: 0% 1% 0% 1%;
+  }
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  .col-3 {
+    width: 25%;
+    margin: 1%;
+  }
+  .col-2 {
+    width: 45%;
+    margin: 1%;
+  }
+  @media (max-width: 900px) {
+    .col-3 {
+      width: 100%;
+    }
+    .col-2 {
+      width: 100%;
+    }
+  }
+}

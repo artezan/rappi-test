@@ -1,0 +1,29 @@
+<div class="conteiner">
+  <div class="row">
+    <div class="col-3" *ngFor="let category of categoriesFather">
+      <mat-card (click)="goToSublevel(category.id)" class="center-conteiner">
+        <mat-card-header class="center-flex ">
+          <mat-card-title>{{ category.name }}</mat-card-title>
+          <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content class="center-block">
+          <img class="center-block" [src]="category.img" alt="" srcset="" />
+
+          <div class="center-block">
+            Subcategorias
+            <span class="my-chip">{{ category.sublevels.length }} </span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            (click)="goToSublevel(category.id)"
+            mat-stroked-button
+            color="primary"
+          >
+            Detalles
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

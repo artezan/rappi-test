@@ -1,0 +1,202 @@
+<div class="conteiner">
+  <ul class="breadcrumb">
+    <li><a [routerLink]="['/list-category']">Categorias</a></li>
+    <li>
+      <a (click)="goToSublevel()">{{ category.name }}</a>
+    </li>
+    <li *ngFor="let sublevel of li; let i = index">
+      <a (click)="returnLi(sublevel, i)">{{ sublevel.name }}</a>
+    </li>
+  </ul>
+  <h4>Subcategorias</h4>
+  <div class="row">
+    <div class="col-3" *ngFor="let sublevel of sublevelsOfSublevel">
+      <div (click)="pushLi(sublevel)" class="chip-icon">
+        <img [src]="sublevel.img" />
+        <div>{{ sublevel.name }}</div>
+        <div><mat-icon>keyboard_arrow_right</mat-icon></div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-2">
+      <mat-card style="    height: 95%;">
+        <mat-card-header>
+          <mat-card-title>Filtros</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-radio-group (change)="filter()" [(ngModel)]="isAvailable">
+            <mat-radio-button value="true">Disponible</mat-radio-button>
+            <mat-radio-button value="false">No Disponible</mat-radio-button>
+          </mat-radio-group>
+          <p>
+            Precio Max<small>(${{ maxFound() }}) max encontrado </small>
+          </p>
+          <!--
+            <input
+              type="number"
+              (keyup)="filter()"
+              [(ngModel)]="max"
+              id="maxInp"
+              name="maxInp"
+              #maxInp="ngModel"
+            />
+          -->
+          <mat-slider
+            (change)="filter()"
+            [(ngModel)]="max"
+            id="maxInp"
+            name="maxInp"
+            #maxInp="ngModel"
+            thumbLabel
+            tickInterval="1"
+            [min]="sliderMin"
+            [max]="sliderMax"
+          ></mat-slider>
+          <p>
+            Precio Min<small>(${{ minFound() }}) min encontrado </small>
+          </p>
+          <!--
+            <input
+              (keyup)="filter()"
+              type="number"
+              [(ngModel)]="min"
+              id="minInp"
+              name="minInp"
+              #minInp="ngModel"
+            />
+          -->
+          <mat-slider
+            (change)="filter()"
+            [(ngModel)]="min"
+            id="minInp"
+            name="minInp"
+            #minInp="ngModel"
+            thumbLabel
+            tickInterval="1"
+            [min]="sliderMin"
+            [max]="sliderMax"
+          ></mat-slider>
+          <p>
+            Cantidad Min Stock<small>({{ minSFound() }}) min encontrado </small>
+          </p>
+          <input
+            (keyup)="filter()"
+            type="number"
+            [(ngModel)]="minS"
+            id="minInpS"
+            name="minInpS"
+            #minInpS="ngModel"
+          />
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            (click)="
+              isAvailable = undefined;
+              min = undefined;
+              minS = undefined;
+              max = sliderMax;
+              filter()
+            "
+            mat-stroked-button
+            color="warm"
+          >
+            Limpiar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-2">
+      <mat-card style="    height: 95%;">
+        <mat-card-header>
+          <mat-card-title>Ordenar</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-radio-group
+            (change)="filter()"
+            [(ngModel)]="sortBy"
+            id="sort"
+            name="sort"
+            #sort="ngModel"
+            class="flex-col"
+          >
+            <mat-radio-button value="1">Precio Ascendente</mat-radio-button>
+            <mat-radio-button value="2">Precio Descendente</mat-radio-button>
+            <mat-radio-button value="3">No Disponible</mat-radio-button>
+            <mat-radio-button value="4">Disponible</mat-radio-button>
+            <mat-radio-button value="5">Cantidad Ascendente </mat-radio-button>
+            <mat-radio-button value="6">Cantidad Descendente </mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            (click)="sortBy = undefined; filter()"
+            mat-stroked-button
+            color="warm"
+          >
+            Limpiar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <mat-card *ngIf="sublevelsOfSublevel.length === 0" class="card-searc">
+      <h4>Buscar por nombre</h4>
+
+      <input
+        (keyup)="filter()"
+        [(ngModel)]="searchByName"
+        id="search"
+        name="search"
+        #search="ngModel"
+      />
+    </mat-card>
+  </div>
+
+  <h4>Productos ({{ products.length }})</h4>
+  <div class="row">
+    <div class="col-3" *ngFor="let product of products">
+      <mat-card class="center-conteiner">
+        <mat-card-header class="center-flex ">
+          <mat-card-title>{{ product.name }}</mat-card-title>
+          <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+        </mat-card-header>
+        <mat-card-content class="center-block">
+          <img class="center-block" src="assets/image1.png" alt="" srcset="" />
+          <h4>{{ product.price }}</h4>
+          <span
+            [ngClass]="{
+              'bg-true ': product.available,
+              'bg-red ': !product.available
+            }"
+            class="ion-badge"
+            >{{
+              product.available
+                ? product.quantity + ' unidades'
+                : product.quantity + ' unidades'
+            }}</span
+          >
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button
+            *ngIf="product.available"
+            (click)="addCar(product)"
+            mat-stroked-button
+            color="primary"
+            style="margin-right: 2%"
+          >
+            + Canasta
+          </button>
+
+          <button
+            (click)="seeProduct(product)"
+            mat-stroked-button
+            color="primary"
+          >
+            Detalles
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>
