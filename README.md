@@ -9,7 +9,7 @@ Test elaborado por `Cesar Artezan`
 1. **Ir directo a este github pages** [https://artezan.github.io/rappi-test/](https://artezan.github.io/rappi-test/)
 2. Con un servidor NodeJS
    1. Instalar Node https://nodejs.org/en/
-   2. Descargar el proyecto con `git clone https://github.com/artezan/rappi-test.git`
+   2. Descargar el proyecto con `git clone https://github.com/artezan/rappi-test.git` y luego `npm i`
    3. ir a `cd rappi-test`
    4. Ejecutar el servidor con `node server.js` el cual iniciará un servidor nodejs en http://localhost:3000/ apuntando hacia el proyecto compilado.
 
