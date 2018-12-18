@@ -1,10 +1,10 @@
 # BaratonApp
 
-Test eleborado por `Cesar Artezan`
+Test elaborado por `Cesar Artezan`
 
 ## Pasos para compilar
 
-### Hay dos formas de correr el porgrama
+### Hay dos formas de correr el programa
 
 1. **Ir directo a este github pages** [https://artezan.github.io/rappi-test/](https://artezan.github.io/rappi-test/)
 2. Con un servidor NodeJS
@@ -52,6 +52,6 @@ interface ProductModel {
 
 Por lo tanto algunos productos en el archivo adjunto tenían un ID de Categoría y no de Sublevel, dado que en las instrucciones dice que " se puede modificar los datos sin cambiar la estructura de los archivos", se editó los prodcutos con un id de categoría a un id de sublevel.
 
-Para recuperar los productos guardados en el carrito de compras se utilizó una Api Html `window.localStorage`, despúes se convirtió en un observable para detectar los cambios en tiempo real
+Para recuperar los productos guardados en el carrito de compras se utilizó una Api Html `window.localStorage`, después se convirtió en un observable para detectar los cambios en tiempo real
 
-Para los filtros y ordenamientos se implemento arreglos de JavaScript.
+Para los filtros y ordenamientos se implementó arreglos de JavaScript.

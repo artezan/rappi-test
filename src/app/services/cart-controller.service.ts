@@ -13,9 +13,13 @@ export class CartControllerService {
   constructor(public snackBar: MatSnackBar) {
     const car = JSON.parse(localStorage.getItem('car'));
     if (car) {
+      console.log(car);
       this.arrCar = car;
       this.car$.next(car);
-      this.openSnackBar(`Aun tenemos tu pedido listo para comprar 🛒`);
+      if (car.length && car.length > 0) {
+        this.openSnackBar(`Aun tenemos tu pedido listo para comprar 🛒`);
+      }
+
       this.arrCar.forEach(v => {
         DATA_PRODUCTS.products.find(p => p.id === v.id).quantity -= 1;
       });
