@@ -2,3 +2,34 @@
   margin-top: 5%;
   width: 100%;
 }
+
+.center-grid {
+  display: block;
+}
+
+.flex-grid {
+  display: flex;
+}
+
+.card-ordenar {
+  height: 95%;
+  margin-top: 12%;
+  width: 114%;
+}
+
+.card-left {
+  width: 100%;
+
+  * {
+    margin: -2% 1% 5% 1%;
+  }
+
+}
+
+.prod-70 {
+  width: 70% !important;
+}
+
+.filter-30 {
+  width: 30% !important;
+}

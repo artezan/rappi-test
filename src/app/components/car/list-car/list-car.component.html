@@ -11,29 +11,42 @@
   <ng-template #elseTemplate>
     <mat-list>
       <mat-list-item *ngFor="let p of carList; let i = index">
-        <img mat-list-icon src="assets/image1.png" alt="" />
+        <img mat-list-icon
+             src="assets/image1.png"
+             alt="" />
         <h4 mat-line>{{ p.name }}</h4>
         <p mat-line><b>Cantidad:</b>{{ p.num }}</p>
         <p mat-line><b>Restante:</b>{{ getRest(p.id) }}</p>
         <span mat-line>
-          <button mat-stroked-button (click)="addCar(p, p.num)" color="accent">
+          <button mat-stroked-button
+                  matTooltip="Agregar uno"
+                  (click)="addCar(p, p.num)"
+                  color="accent">
             <mat-icon>add_shopping_cart</mat-icon>Agregar
           </button>
-          <button mat-stroked-button (click)="removeOne(p, p.num)" color="warn">
+          <button mat-stroked-button
+                  matTooltip="Quitar uno"
+                  (click)="removeOne(p, p.num)"
+                  color="warn">
             <mat-icon>remove_shopping_cart</mat-icon>Quitar
-          </button></span
-        >
-        <p mat-line style="text-align: right">
-          <mat-icon (click)="messageError(p)" color="warn">delete</mat-icon>
+          </button></span>
+        <span mat-line
+              class="flex-box">
+          <mat-icon (click)="messageError(p)"
+                    matTooltip="Borrar estos elementos"
+                    color="warn">delete</mat-icon>
           <span class="ion-badge bg"> ${{ p.sub }}</span>
-        </p>
+        </span>
+        <mat-divider *ngIf=" i !== carList.length -1 "></mat-divider>
       </mat-list-item>
-      <mat-divider></mat-divider>
+      <hr>
     </mat-list>
     <div class="total-p">
       <h5>Total: $ {{ getSum() }}</h5>
     </div>
-    <button (click)="buy()" mat-flat-button color="primary">
+    <button (click)="buy()"
+            mat-flat-button
+            color="primary">
       <mat-icon>check_circle_outline</mat-icon>
       Finalizar Compra
     </button>

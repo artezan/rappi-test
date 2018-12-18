@@ -1,27 +1,57 @@
 # BaratonApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
+Test eleborado por `Cesar Artezan`
 
-## Development server
+## Pasos para compilar
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Hay dos formas de correr el porgrama
 
-## Code scaffolding
+1. **Ir directo a este github pages** [https://artezan.github.io/rappi-test/](https://artezan.github.io/rappi-test/)
+2. Con un servidor NodeJS
+   1. Instalar Node https://nodejs.org/en/
+   2. Descargar el proyecto con `git clone https://github.com/artezan/rappi-test.git`
+   3. ir a `cd rappi-test`
+   4. Ejecutar el servidor con `node server.js` el cual iniciará un servidor nodejs en http://localhost:3000/ apuntando hacia el proyecto compilado.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Datos del proyecto
 
-## Build
+- Esta realizado con Angular 7+ (framework de JavaScript que trabaja con TypeScript 3.2)
+- Se utilizó https://material.angular.io/ para algunos componentes y además se implementó CSS
+- Se creó un servidor nodeJS para facilitar su testing
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Resolución del problema
 
-## Running unit tests
+Se siguió la siguiente metodología basado en estándares de PSP y TSP:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Se entendió y se leyó a detalle la hoja de requerimientos
+2. Se analizó profundamente el modelo de datos
+   - en esta parte cabe destacar que se detectó defectos en los datos más no en el modelo de datos, es decir, el modelo hablando de una base de datos NoSQL sigue este esquema
 
-## Running end-to-end tests
+```typescript
+interface CategoryModel {
+  img: string;
+  id: number;
+  name: string;
+  sublevels?: SublevelModel[];
+}
+interface SublevelModel {
+  img?: string;
+  id: number;
+  name: string;
+  sublevels?: SublevelModel[];
+}
+interface ProductModel {
+  quantity: number;
+  price: string;
+  available: boolean;
+  sublevel_id: number; // <-- relación con un sublevel
+  name: string;
+  id: string;
+}
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Por lo tanto algunos productos en el archivo adjunto tenían un ID de Categoría y no de Sublevel, dado que en las instrucciones dice que " se puede modificar los datos sin cambiar la estructura de los archivos", se editó los prodcutos con un id de categoría a un id de sublevel.
 
-## Further help
+Para recuperar los productos guardados en el carrito de compras se utilizó una Api Html `window.localStorage`, despúes se convirtió en un observable para detectar los cambios en tiempo real
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Para los filtros y ordenamientos se implemento arreglos de JavaScript.

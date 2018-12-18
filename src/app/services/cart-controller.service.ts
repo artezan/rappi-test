@@ -2,22 +2,29 @@ import { ProductModel } from 'src/app/models/product.model';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { DATA_PRODUCTS } from '../_data/products';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartControllerService {
   public car$ = new BehaviorSubject<ProductModel[]>([]);
   private arrCar: ProductModel[] = [];
-  constructor() {
+  constructor(public snackBar: MatSnackBar) {
     const car = JSON.parse(localStorage.getItem('car'));
     if (car) {
       this.arrCar = car;
       this.car$.next(car);
+      this.openSnackBar(`Aun tenemos tu pedido listo para comprar 🛒`);
       this.arrCar.forEach(v => {
         DATA_PRODUCTS.products.find(p => p.id === v.id).quantity -= 1;
       });
     }
+  }
+  private openSnackBar(message: string) {
+    this.snackBar.open(message, '', {
+      duration: 3000,
+    });
   }
   private dataGeneralRemove(produc: ProductModel) {
     DATA_PRODUCTS.products.find(p => p.id === produc.id).quantity -= 1;

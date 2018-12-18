@@ -362,15 +362,17 @@ MIT
 @angular/forms
 MIT
 
+@angular/material/button-toggle
+
 @angular/material/radio
 
 @angular/material/slider
 
+@angular/material/divider
+
 @angular/material/core
 
 @angular/material/list
-
-@angular/material/divider
 
 @angular/material/tooltip
 

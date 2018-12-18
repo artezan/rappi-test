@@ -8,11 +8,13 @@ import { PriceToNumber } from 'src/app/_data/_helpers';
 import { CartControllerService } from 'src/app/services/cart-controller.service';
 import { MatDialog } from '@angular/material';
 import { GeneralAlertComponent } from '../../shared/general-alert/general-alert.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
-  styleUrls: ['./list-products.component.scss']
+  styleUrls: ['./list-products.component.scss'],
 })
 export class ListProductsComponent implements OnInit {
   category: CategoryModel;
@@ -30,21 +32,24 @@ export class ListProductsComponent implements OnInit {
   sortBy;
   searchByName: string;
   lastId: number;
+  grid = 'center';
   li: SublevelModel[] = [];
+  isHan: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartControllerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private breakpointObserver: BreakpointObserver,
   ) {
     this.route.queryParams.subscribe(params => {
       if (params['id']) {
         this.getProducts(+params['id']);
         this.category = DATA_CATEGORY.categories.find(
-          cat => cat.id === +params['fatherId']
+          cat => cat.id === +params['fatherId'],
         );
         this.sublevel = this.category.sublevels.find(
-          sub => sub.id === +params['id']
+          sub => sub.id === +params['id'],
         );
 
         // obtiene productos
@@ -52,6 +57,17 @@ export class ListProductsComponent implements OnInit {
         this.pushLi(this.sublevel);
       }
     });
+    this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map(result => result.matches))
+      .subscribe(isHan => {
+        console.log(isHan);
+        this.isHan = isHan;
+
+        if (isHan) {
+          this.grid = 'center';
+        }
+      });
   }
 
   private init(id) {
@@ -70,7 +86,7 @@ export class ListProductsComponent implements OnInit {
 
   goToSublevel() {
     const data: NavigationExtras = {
-      queryParams: { id: this.category.id }
+      queryParams: { id: this.category.id },
     };
     this.router.navigate(['list-sublevel'], data);
   }
@@ -81,12 +97,12 @@ export class ListProductsComponent implements OnInit {
     }
     if (this.min) {
       this.products = this.products.filter(
-        p => PriceToNumber(p.price) >= this.min
+        p => PriceToNumber(p.price) >= this.min,
       );
     }
     if (this.max) {
       this.products = this.products.filter(
-        p => PriceToNumber(p.price) <= this.max
+        p => PriceToNumber(p.price) <= this.max,
       );
     }
     if (this.minS) {
@@ -233,7 +249,7 @@ export class ListProductsComponent implements OnInit {
   seeProduct(product: ProductModel) {
     const dialogRef = this.dialog.open(GeneralAlertComponent, {
       data: {
-        header: `Producto: ${name}`,
+        header: `Producto: ${product.name}`,
         body: `<div style="text-align: center" ><img  src="assets/image1.png" ></div>
         <p> <b># Cantidad:</b> ${product.quantity} </p>
           <p> <b>Precio:</b> ${product.price} </p>
@@ -244,8 +260,8 @@ export class ListProductsComponent implements OnInit {
              it to make a type specimen book. It has survived not only five centuries,</p>
           `,
         isform: false,
-        hideButtonCancel: true
-      }
+        hideButtonCancel: true,
+      },
     });
     const sub = dialogRef.componentInstance.buttons.subscribe(res => {
       if (res === 'ok') {

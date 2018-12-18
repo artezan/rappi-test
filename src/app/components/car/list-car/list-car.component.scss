@@ -1,6 +1,13 @@
 .bg {
   background-color: #c3dcff;
 }
+
 .total-p {
   text-align: right;
+}
+
+.flex-box {
+  display: flex !important;
+  justify-content: flex-end;
+  cursor: pointer;
 }
